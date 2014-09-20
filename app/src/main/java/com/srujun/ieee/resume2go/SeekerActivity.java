@@ -70,7 +70,7 @@ public class SeekerActivity extends Activity {
         startActivityForResult(Intent.createChooser(intent, "Select Image"), 2);
     }
 
-    public void discoverPeers() {
+    public void discoverPeers(View view) {
         manager.addServiceRequest(channel, WifiP2pUpnpServiceRequest.newInstance(), new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
@@ -98,7 +98,8 @@ public class SeekerActivity extends Activity {
 
                     @Override
                     public void onFailure(int i) {
-
+                        Toast toast = Toast.makeText(getApplicationContext(), "Upnp service not found.", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
             }
@@ -107,12 +108,13 @@ public class SeekerActivity extends Activity {
         manager.discoverServices(channel, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
-                // Do nothing
+                Toast toast = Toast.makeText(getApplicationContext(), "Searching started.", Toast.LENGTH_SHORT);
+                toast.show();
             }
 
             @Override
             public void onFailure(int reasonCode) {
-                Toast toast = Toast.makeText(getApplicationContext(), "No local service found.", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Could not start search.", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
