@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.net.wifi.p2p.nsd.WifiP2pServiceInfo;
+import android.net.wifi.p2p.nsd.WifiP2pUpnpServiceInfo;
 import android.net.wifi.p2p.nsd.WifiP2pUpnpServiceRequest;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.UUID;
 
 
 public class SeekerActivity extends Activity {
@@ -76,7 +79,7 @@ public class SeekerActivity extends Activity {
 
             @Override
             public void onFailure(int i) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Could not connect to Upnp peer.", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Could not connect to DnsSd peer.", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
@@ -95,7 +98,7 @@ public class SeekerActivity extends Activity {
 
                     @Override
                     public void onFailure(int i) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Upnp service not found.", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(), "DnsSd service not found.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 });
@@ -112,6 +115,23 @@ public class SeekerActivity extends Activity {
             @Override
             public void onFailure(int reasonCode) {
                 Toast toast = Toast.makeText(getApplicationContext(), "Could not start search.", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    public void broadcastService(View view) {
+        WifiP2pServiceInfo serviceInfo = WifiP2pUpnpServiceInfo.newInstance(UUID.randomUUID().toString(), "TESTO", null);
+        manager.addLocalService(channel, serviceInfo, new WifiP2pManager.ActionListener() {
+            @Override
+            public void onSuccess() {
+                Toast toast = Toast.makeText(getApplicationContext(), "Broadcast started.", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            @Override
+            public void onFailure(int i) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Broadcast failed.", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
