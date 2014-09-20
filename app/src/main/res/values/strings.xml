@@ -15,6 +15,8 @@
     <string name="edit_message">Enter a Message</string>
     <string name="button_attach">Attach File</string>
     <string name="action_search">Search</string>
-    <string name="button_text_default">No file selected...</string>
+    <string name="text_filename_default">No file selected...</string>
+    <string name="text_peer_connected_to">Connected to: none</string>
+    <string name="button_search_peers">Search Peers</string>
 
 </resources>

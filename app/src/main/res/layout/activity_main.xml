@@ -7,6 +7,21 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/button_search_peers"
+        android:layout_gravity="center_horizontal"
+        android:onClick="discoverPeers"
+        android:layout_margin="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/textview_connected_device"
+        android:text="@string/text_peer_connected_to"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/button_attach"
         android:layout_gravity="center_horizontal"
         android:onClick="sendMessage"
@@ -16,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/button_text_default"
+        android:text="@string/text_filename_default"
         android:id="@+id/file_name_textview"
         android:layout_margin="10dp" />
 
