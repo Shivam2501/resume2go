@@ -13,7 +13,8 @@
     <string name="title_activity_display_message">My Message</string>
     <string name="hello_world">Hello world!</string>
     <string name="edit_message">Enter a Message</string>
-    <string name="button_send">Send</string>
+    <string name="button_attach">Attach File</string>
     <string name="action_search">Search</string>
+    <string name="button_text_default">No file selected...</string>
 
 </resources>

@@ -2,12 +2,16 @@ package com.srujun.ieee.resume2go;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
+import android.provider.OpenableColumns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
@@ -20,11 +24,26 @@ public class MainActivity extends Activity {
     }
 
     public void sendMessage(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+        Intent intent = new Intent();
+        intent.setType("*/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), 2);
+    }
+
+    @Override
+    public void onActivityResult(int requestcode, int resultcode, Intent data) {
+        if(resultcode == RESULT_OK) {
+            if(requestcode == 2) {
+                Uri selectedImageUri = data.getData();
+                Cursor fileCursor = getContentResolver().query(selectedImageUri, null, null, null, null);
+
+                TextView fileNameLabel = (TextView) findViewById(R.id.file_name_textview);
+                int nameIndex = fileCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                fileCursor.moveToFirst();
+                fileNameLabel.setText(fileCursor.getString(nameIndex));
+                fileCursor.close();
+            }
+        }
     }
 
     @Override
